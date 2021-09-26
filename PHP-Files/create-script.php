@@ -31,5 +31,6 @@
     $value = htmlspecialchars($value);
     return $value;
   }
+
 $conn->close();
 ?>

@@ -1,6 +1,6 @@
 <?php
     include "create-script.php";
-    include "update-script.php";
+    include "delete-script.php";
 ?>
 
 <!DOCKTYPE html>
@@ -17,14 +17,14 @@
     <p style="color:red"><?php if(!empty($msg)){echo $msg; }?></p>
     <form method="post" action="home.php">
     <label id="name">Enter Name</label>
-    <input type="text" name="name" id="name" class="form-control" required value="<?php echo $editdata['name'] ?>">
+    <input type="text" name="name" id="name" class="form-control" required>
 
     <label id="name" class=" mt-3">Enter Email</label>
-    <input type="email" name="email" id="email" class="form-control" required value="<?php echo $editdata['email'] ?>">
+    <input type="email" name="email" id="email" class="form-control" required>
 
     <button type="submit" id="submit" name="create" class="btn btn-primary  mt-3">Insert</button>
 
-    <button type="submit" id="submit" name="update" class="btn btn-warning  mt-3">Update</button>
+    <!-- <button type="submit" id="update" name="update" class="btn btn-warning  mt-3">Update</button> -->
     </form>
 </div>
 
@@ -59,8 +59,8 @@
         <td><?php echo $sn; ?></td>
         <td><?php echo $data['name']; ?></td>
         <td><?php echo $data['email']; ?></td>
-        <td><a href="update-script.php?edit=<?php echo $data['id'];?>">Edit</a></td>
-        <td><a href="home.php?delete=<?php echo $data['id'];?>">Delete</a></td>
+        <td><a class="btn btn-secondary" href="update-form.php?edit=<?php echo $data['id']; ?>">Edit</a></td>
+        <td><a class="btn btn-danger" href="home.php?delete=<?php echo $data['id']; ?>">Delete</a></td>
     </tr>
 
     <?php 
@@ -76,12 +76,8 @@
     ?>
 
 </table>
-<?php mysqli_close($conn); // Close connection ?>
+
 
 </body>
 </html>
-<?php
-
-
-
-?>
+<!-- <?php mysqli_close($conn); // Close connection ?> -->
