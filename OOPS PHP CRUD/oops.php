@@ -36,12 +36,31 @@ class OOPCRUD
 		return $res;
 	}
 
-	public function fetchData()
+	public function fetchData($records_per_page,$page)
 	{
-		$query="SELECT * FROM person";
-		$result=mysqli_query($this->conn,$query);
-		return $result;
+		
+		if(isset($_GET['page']))
+        {
+            $page=$_GET['page'];
+        }else{
+            $page=1;
+        }
+        $start_from=($page-1)*$records_per_page;
+
+        $query="SELECT * FROM person LIMIT $start_from, $records_per_page";
+
+        $result=mysqli_query($this->conn,$query);
+        return $result;
 	}
+
+	public function getPage()
+	{
+		$page_query="SELECT * FROM person ORDER BY  id DESC";
+        $page_result=mysqli_query($this->conn,$page_query);
+        $total_records=mysqli_num_rows($page_result);
+        return $total_records;
+	}
+
 	public function fetchonerecord($id)
 	{
 		$query="select * from person where id=$id";
