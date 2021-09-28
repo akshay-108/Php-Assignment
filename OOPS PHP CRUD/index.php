@@ -38,10 +38,14 @@ if(isset($_POST['insert']))
         text-decoration: none;   
         border:1px solid black;   
     }   
-    .pagination a.active:hover {   
-            background-color: #000;
-            color: #fff;
-        }   
+    .pagination a.active {   
+            background-color: #000;   
+            color:#fff;
+    }   
+    .pagination a:hover:not(.active) {   
+        background-color: red;
+        color:#fff;
+    }    
 </style>
 </head>
 <body>
@@ -75,10 +79,16 @@ if(isset($_POST['insert']))
     </thead>
     <tbody>
      <?php
-     $records_per_page=3;
-     $page="";
-      $sql=$ClassObj->fetchData($records_per_page,$page);
-      while($row=mysqli_fetch_array($sql))
+      $records_per_page=4;
+      if(isset($_GET['page']))
+      {
+          $page=($_GET['page'])   ;
+      }else{
+          $page=1;
+      }
+      $start_from=($page-1)*$records_per_page;
+      $result=$ClassObj->fetchData($records_per_page,$start_from);
+      while($row=mysqli_fetch_array($result))
       {
       ?>
         <tr>
@@ -95,13 +105,16 @@ if(isset($_POST['insert']))
 </table>
 <div class="container text-center pagination">
     <?php
-        $pageLink="";
-        $res=$ClassObj->getPage();
+        $$res=$ClassObj->getPage();
         $total_pages=ceil($res/$records_per_page);
         for ($i=1; $i <= $total_pages; $i++) { 
-           
-                echo '<a class="active" href = "index.php?page=' . $i . '">' . $i . ' </a>';
-            } 
+            if($i==$page)
+            {
+                echo '<a class="active" href = "index.php?page=' . $i . '">' . $i . ' </a>'; 
+            }else{
+                echo '<a href ="index.php?page=' . $i . '">' . $i . ' </a>'; 
+            }
+        }
 
     ?>
 </div>
