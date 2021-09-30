@@ -2,8 +2,8 @@ $(document).ready(function()
 {
     $("#submit").click(function(e){
         e.preventDefault();
-        var name=$("#name");
-        var email=$("#email");
+        var name=$('#name').val();
+        var email=$('#email').val();
         $.ajax({
             type:"POST",
             url:'insert.php',
@@ -11,12 +11,12 @@ $(document).ready(function()
                 name:name,
                 email:email
             }
-        }).done(function(data)
+        }).done(function(msg)
         {
-            $("#msg").html(data);
-        }).fail(function(data)
+            $("#result1").html(msg);
+        }).fail(function(msg)
         {   
-            $("#msg").html(data);
+            $("#result2").html(msg);
         })
     });
 });
