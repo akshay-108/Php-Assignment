@@ -2,7 +2,7 @@
 <?php
 
 
-// include "insert.php";
+// include 'oops.php';
 include "delete.php";
 $ClassObj=new OOPCRUD();
 
@@ -58,66 +58,8 @@ $ClassObj=new OOPCRUD();
    
     </form>
 </div>  
-    
-<table class="table container" id="container2">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Email</th>
-            <th scope="col">Update</th>
-            <th scope="col">Delete</th>
-        </tr>
-    </thead>
-    <tbody>
-     <?php
-        $records_per_page=4;
-        if(isset($_GET['page']))
-		{
-			$page=($_GET['page']);
-		}else{
-			$page=1;
-		}
-        // echo $page;
-		$start_from=($page-1)*$records_per_page;
-        // echo $start_from;
-        $result=$ClassObj->fetchData($records_per_page,$start_from);
-        // print_r($result);
-        $cnt=1+$start_from;
-        while($row=mysqli_fetch_array($result))
-        {
-      ?>
-        <tr>
-        <td><?php echo htmlentities($cnt);?></td>
-        <td><?php echo htmlentities($row['name']);?></td>
-        <td><?php echo htmlentities($row['email']);?></td>
-        <td><a class="btn btn-secondary" href="update.php?id=<?php echo htmlentities($row['id']);?>">Edit</a></td>
-        <td><a class="btn btn-danger" href="index.php?del=<?php echo htmlentities($row['id']);?>">DELETE</a></td>
-    <?php
-    // for serial number increment
-    $cnt++;
-    } 
+<div class="container table-responsive" id="pagination-data">
 
-    ?>
-</tbody>
-</table>
-
-<div class="container text-center pagination" id="container3">
-    <?php
-    $res=$ClassObj->getPage();
-    $total_pages=ceil($res/$records_per_page);
-    // echo $total_pages;
-    for ($i=1; $i <= $total_pages; $i++) { 
-        if($i==$page)
-        {
-            echo '<a class="active" id="read-data" href = "index.php?page=' . $i . '">' . $i . ' </a>'; 
-        }else{
-            echo '<a id="read-data" href="index.php?page=' . $i . '">' . $i . ' </a>'; 
-        }
-    }
-    
-
-    ?>
 </div>
 
 </body>

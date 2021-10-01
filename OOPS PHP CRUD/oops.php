@@ -7,20 +7,20 @@ class OOPCRUD
 	{
 
 		// for ubuntu
-		// $servername="localhost";
-		// $username="akshay";
-		// $password="Akshay@147852369";
-		// $dbname="oopscrud";
-
-		// for windows
 		$servername="localhost";
-		$username="root";
-		$password="";
+		$username="akshay";
+		$password="Akshay@147852369";
 		$dbname="oopscrud";
+
+		// // for windows
+		// $servername="localhost";
+		// $username="root";
+		// $password="";
+		// $dbname="oopscrud";
 		$this->conn=new mysqli($servername,$username,$password,$dbname);
 
 		//check connection
-		if($this->conn->connect_error)
+		if($this->conn->connect_error) 	
 		{
 			echo "Failed To connect database" . mysqli_connect_error();
 		}
@@ -36,9 +36,9 @@ class OOPCRUD
 		return $res;
 	}
 
-	public function fetchData($records_per_page,$start_from)
+	public function fetchData($record_per_page,$start_from)
 	{
-		$query="SELECT * FROM person LIMIT $start_from, $records_per_page";
+		$query="SELECT * FROM person LIMIT $start_from, $record_per_page";
 
 		$result=mysqli_query($this->conn,$query);
 		return $result;
@@ -46,7 +46,7 @@ class OOPCRUD
 
 	public function getPage()
 	{
-		$page_query="SELECT * FROM person ORDER BY  id DESC";
+		$page_query="SELECT * FROM person";
 		$page_result=mysqli_query($this->conn,$page_query);
 		$total_records=mysqli_num_rows($page_result);
 		return $total_records;
